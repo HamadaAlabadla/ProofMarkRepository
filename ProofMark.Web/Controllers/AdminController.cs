@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ProofMark.Core.ViewModels;
 using ProofMark.EF.Models;
@@ -6,7 +7,7 @@ using static ProofMark.Core.Enums.Enums;
 
 namespace ProofMark.Web.Controllers
 {
-	//[Authorize(Roles = "Admin")]
+	[Authorize(Roles = "Admin")]
 	public class AdminController : Controller
 	{
 		private readonly IFactoryService _factoryService;
@@ -16,7 +17,7 @@ namespace ProofMark.Web.Controllers
 			_factoryService = factoryService;
 		}
 		[HttpGet]
-		public async Task<IActionResult> Index()
+		public IActionResult Index()
 		{
 			return View();
 		}

@@ -107,7 +107,7 @@
 									<div class="menu-item px-5">
 										<!--<a href="#" class="menu-link badge badge-light-danger px-5">Sign Out</a>-->
 										<form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "ProductVerification", new { area = "" })">
-											<button type="submit" class="nav-link btn btn-link text-dark">Sign Out</button>
+												<button type="submit" class="btn btn-danger px-5">Sign Out</button>
 										</form>
 									</div>
 									<!--end::Menu item-->
@@ -197,7 +197,7 @@
 								else if (roles.Contains("Factory"))
 								{
 									<!--begin:Menu item-->
-									<a href="#" class="menu-item here show menu-accordion">
+									<a asp-controller="Factory" asp-action="Index" class="menu-item here show menu-accordion">
 										<!--begin:Menu link-->
 										<span class="menu-link">
 											<span class="menu-icon">
@@ -212,7 +212,7 @@
 												</span>
 												<!--end::Svg Icon-->
 											</span>
-											<span class="menu-title">Factories Managment</span>
+											<span class="menu-title">Products Managment</span>
 										</span>
 										<!--end:Menu link-->
 

@@ -12,6 +12,11 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 	options.UseSqlServer(connectionString));
 
+builder.Services.ConfigureApplicationCookie(options =>
+{
+	options.AccessDeniedPath = "/Identity/Account/AccessDenied";  // Change to your desired path
+});
+
 builder.Services.AddDistributedMemoryCache(); // Required for session
 builder.Services.AddSession(options =>
 {

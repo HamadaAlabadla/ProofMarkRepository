@@ -14,12 +14,14 @@ namespace ProofMark.Web.Areas.Identity.Pages.Account
 	public class LoginModel : PageModel
 	{
 		private readonly SignInManager<User> _signInManager;
+		private readonly UserManager<User> _userManager;
 		private readonly ILogger<LoginModel> _logger;
 
-		public LoginModel(SignInManager<User> signInManager, ILogger<LoginModel> logger)
+		public LoginModel(UserManager<User> userManager, ILogger<LoginModel> logger , SignInManager<User> signInManager)
 		{
-			_signInManager = signInManager;
+			_userManager = userManager;
 			_logger = logger;
+			_signInManager = signInManager;
 		}
 
 		/// <summary>
@@ -108,8 +110,16 @@ namespace ProofMark.Web.Areas.Identity.Pages.Account
 				var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
 				if (result.Succeeded)
 				{
-					_logger.LogInformation("User logged in.");
-					return LocalRedirect(returnUrl);
+					var user = await _userManager.FindByNameAsync(Input.Email);
+					var roles = await _userManager.GetRolesAsync(user);
+
+					if (roles.Contains("Admin"))
+						return RedirectToAction("Index", "Admin");
+					else if (roles.Contains("Factory"))
+						return RedirectToAction("Index", "Factory");
+					else
+						return NotFound();
+
 				}
 				if (result.RequiresTwoFactor)
 				{

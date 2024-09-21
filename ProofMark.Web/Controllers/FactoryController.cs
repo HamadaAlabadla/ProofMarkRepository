@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using ProofMark.Core.ViewModels;
 using ProofMark.EF.Models;
@@ -6,7 +7,7 @@ using ProofMark.Infrastructure.Services;
 
 namespace ProofMark.Web.Controllers
 {
-	// [Authorize(Roles = "Factory")]
+	[Authorize(Roles = "Factory")]
 	public class FactoryController : Controller
 	{
 		private readonly IProductService _productService;
@@ -18,6 +19,11 @@ namespace ProofMark.Web.Controllers
 			_productService = productService;
 			_userManager = userManager;
 			_factoryService = factoryService;
+		}
+		[HttpGet]
+		public IActionResult Index()
+		{
+			return View();
 		}
 
 		[HttpGet]
