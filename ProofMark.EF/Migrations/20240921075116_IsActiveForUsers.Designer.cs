@@ -9,11 +9,11 @@ using ProofMark.EF.Data;
 
 #nullable disable
 
-namespace ProofMark.EF.Data.Migrations
+namespace ProofMark.EF.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240918135315_updata-password")]
-    partial class updatapassword
+    [Migration("20240921075116_IsActiveForUsers")]
+    partial class IsActiveForUsers
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -54,13 +54,13 @@ namespace ProofMark.EF.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "ddf4cadd-6a2f-4215-88fa-1914d0115677",
+                            Id = "7901b670-a5fb-40a4-8404-e24a01b2220b",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "3ebabfa5-f480-47e5-b5de-b559cbd8286e",
+                            Id = "8bbc0cc8-3c88-4e18-8b8a-0f3c67419c24",
                             Name = "Factory",
                             NormalizedName = "FACTORY"
                         });
@@ -155,8 +155,8 @@ namespace ProofMark.EF.Data.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "87f89eb4-88a7-44dd-a98b-8b9eaaf28685",
-                            RoleId = "ddf4cadd-6a2f-4215-88fa-1914d0115677"
+                            UserId = "e8da1e5e-838e-439a-8bca-f025d23e06b0",
+                            RoleId = "7901b670-a5fb-40a4-8404-e24a01b2220b"
                         });
                 });
 
@@ -287,6 +287,9 @@ namespace ProofMark.EF.Data.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
 
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
 
@@ -338,17 +341,20 @@ namespace ProofMark.EF.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "87f89eb4-88a7-44dd-a98b-8b9eaaf28685",
+                            Id = "e8da1e5e-838e-439a-8bca-f025d23e06b0",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "534e8c1f-ff3d-4d02-b2ce-35bc5b4ef740",
-                            CreateAt = new DateTime(2024, 9, 18, 16, 53, 9, 705, DateTimeKind.Local).AddTicks(3674),
+                            ConcurrencyStamp = "00c09de4-e2fa-47d0-896b-6ba8befcb9db",
+                            CreateAt = new DateTime(2024, 9, 21, 10, 51, 9, 118, DateTimeKind.Local).AddTicks(7624),
                             Email = "Admin@gmail.com",
                             EmailConfirmed = true,
+                            IsActive = true,
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAIAAYagAAAAENj88hJpSwiHfFRUPDREUvZh+YJv6DGz3Pf2cXHnbsPpKvcWV+n7NY4CWlFOQHTvHg==",
+                            NormalizedEmail = "ADMIN@GMAIL.COM",
+                            NormalizedUserName = "ADMIN@GMAIL.COM",
+                            PasswordHash = "AQAAAAIAAYagAAAAEKWXUlaGZEoNXTFpSHN1VQ3A97rDqWVeXuYFP2D/+8CtuG9sVX0UuNh8sLcWoNX+rw==",
                             PhoneNumber = "1234567890",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "cf0953be-e7d5-4d8c-b0ae-48052b0b7186",
+                            SecurityStamp = "b4c8ca62-3dc8-428d-a396-bf31f677f30b",
                             TwoFactorEnabled = false,
                             UserName = "Admin@gmail.com",
                             UserType = 0

@@ -3,17 +3,20 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProofMark.EF.Data;
 
 #nullable disable
 
-namespace ProofMark.EF.Data.Migrations
+namespace ProofMark.EF.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240920143616_initail-create")]
+    partial class initailcreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -51,13 +54,13 @@ namespace ProofMark.EF.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "ddf4cadd-6a2f-4215-88fa-1914d0115677",
+                            Id = "57377347-8b55-4401-9132-58de8b30b55f",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "3ebabfa5-f480-47e5-b5de-b559cbd8286e",
+                            Id = "20027554-fd43-47c5-a973-15a38ae5bc72",
                             Name = "Factory",
                             NormalizedName = "FACTORY"
                         });
@@ -152,8 +155,8 @@ namespace ProofMark.EF.Data.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "87f89eb4-88a7-44dd-a98b-8b9eaaf28685",
-                            RoleId = "ddf4cadd-6a2f-4215-88fa-1914d0115677"
+                            UserId = "4cfc5828-5d6a-4f02-b19e-a3483bf30747",
+                            RoleId = "57377347-8b55-4401-9132-58de8b30b55f"
                         });
                 });
 
@@ -335,17 +338,19 @@ namespace ProofMark.EF.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "87f89eb4-88a7-44dd-a98b-8b9eaaf28685",
+                            Id = "4cfc5828-5d6a-4f02-b19e-a3483bf30747",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "534e8c1f-ff3d-4d02-b2ce-35bc5b4ef740",
-                            CreateAt = new DateTime(2024, 9, 18, 16, 53, 9, 705, DateTimeKind.Local).AddTicks(3674),
+                            ConcurrencyStamp = "528c4e4e-c11e-4607-a558-0e12f182cd26",
+                            CreateAt = new DateTime(2024, 9, 20, 17, 36, 13, 958, DateTimeKind.Local).AddTicks(786),
                             Email = "Admin@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAIAAYagAAAAENj88hJpSwiHfFRUPDREUvZh+YJv6DGz3Pf2cXHnbsPpKvcWV+n7NY4CWlFOQHTvHg==",
+                            NormalizedEmail = "ADMIN@GMAIL.COM",
+                            NormalizedUserName = "ADMIN@GMAIL.COM",
+                            PasswordHash = "AQAAAAIAAYagAAAAEAMoEtOPATybfh8dvqLSEzcDoLV20rARwwz++vLTS1ROyxsT+rve/wxoiU1VMvG0Xw==",
                             PhoneNumber = "1234567890",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "cf0953be-e7d5-4d8c-b0ae-48052b0b7186",
+                            SecurityStamp = "811349a5-940c-4cd4-92e4-c7e67f5eba42",
                             TwoFactorEnabled = false,
                             UserName = "Admin@gmail.com",
                             UserType = 0

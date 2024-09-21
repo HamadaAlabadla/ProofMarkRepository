@@ -33,12 +33,16 @@
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700" />
 	<!--end::Fonts-->
 	<!--begin::Vendor Stylesheets(used for this page only)-->
-	<link href="assets/plugins/custom/datatables/datatables.bundle.css" rel="stylesheet" type="text/css" />
+	<!--<link href="assets/plugins/custom/datatables/datatables.bundle.css" rel="stylesheet" type="text/css" />-->
 	<!--end::Vendor Stylesheets-->
 	<!--begin::Global Stylesheets Bundle(mandatory for all pages)-->
 	<link href="~/css/plugins.bundle.css" rel="stylesheet" type="text/css" />
 	<link href="~/css/style.bundle.css" rel="stylesheet" type="text/css" />
 	<!--end::Global Stylesheets Bundle-->
+	<!-- DataTables CSS -->
+	<!--<link rel="stylesheet" type="text/css" href="https:cdn.datatables.net/1.11.5/css/jquery.dataTables.css">-->
+
+	
 </head>
 <!--end::Head-->
 <!--begin::Body-->
@@ -96,6 +100,15 @@
 									<!--begin::Menu item-->
 									<div class="menu-item px-5">
 										<a href="#" class="menu-link px-5">My Profile</a>
+									</div>
+									<!--end::Menu item-->
+
+									<!--begin::Menu item-->
+									<div class="menu-item px-5">
+										<!--<a href="#" class="menu-link badge badge-light-danger px-5">Sign Out</a>-->
+										<form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "ProductVerification", new { area = "" })">
+											<button type="submit" class="nav-link btn btn-link text-dark">Sign Out</button>
+										</form>
 									</div>
 									<!--end::Menu item-->
 
@@ -159,7 +172,7 @@
 								@if (roles.Contains("Admin"))
 								{
 									<!--begin:Menu item-->
-									<a href="#" class="menu-item here show menu-accordion">
+									<a asp-controller="Admin" asp-action="Index" class="menu-item here show menu-accordion">
 										<!--begin:Menu link-->
 										<span class="menu-link">
 											<span class="menu-icon">
@@ -253,6 +266,9 @@
 	<script src="~/js/scripts.bundle.js"></script>
 	<!--end::Global Javascript Bundle-->
 	<!--begin::Vendors Javascript(used for this page only)-->
+	<!-- jQuery and DataTables JS -->
+	<script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<!--<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>-->
 
 
 	<script src="assets/plugins/custom/fullcalendar/fullcalendar.bundle.js"></script>
@@ -279,6 +295,8 @@
 	<script src="assets/js/custom/utilities/modals/users-search.js"></script>
 	<!--end::Custom Javascript-->
 	<!--end::Javascript-->
+	@RenderSection("Scripts", required: false)
+
 </body>
 <!--end::Body-->
 </html>
