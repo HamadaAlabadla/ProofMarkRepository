@@ -10,7 +10,7 @@ namespace ProofMark.Infrastructure.Services
 		Task<IEnumerable<Product>> GetProductsByFactoryIdAsync(int factoryId);
 		Task<Product> CreateProductAsync(Product product);
 		Task UpdateProductAsync(Product product);
-		Task DeleteProductAsync(int productId);
+		Task<bool> DeleteProductAsync(int productId);
 		Task<List<ProductItem>> CreateProductItemAsync(int productId, int num);
 		Task<bool> VerifyProductItemAsync(string qrCode);
 	}
@@ -52,15 +52,19 @@ namespace ProofMark.Infrastructure.Services
 			await _context.SaveChangesAsync();
 		}
 
-		public async Task DeleteProductAsync(int productId)
+		public async Task<bool> DeleteProductAsync(int productId)
 		{
 			var product = await _context.Products.FindAsync(productId);
 			if (product != null)
 			{
-				_context.Products.Remove(product);
+				product.IsDelete = true;
+                _context.Entry(product).State = EntityState.Modified;
 				await _context.SaveChangesAsync();
-			}
-		}
+				return true;
+
+            }
+			return false;
+        }
 
 		public async Task<List<ProductItem>> CreateProductItemAsync(int productId, int num)
 		{

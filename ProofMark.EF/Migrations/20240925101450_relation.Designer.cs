@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProofMark.EF.Data;
 
@@ -11,9 +12,11 @@ using ProofMark.EF.Data;
 namespace ProofMark.EF.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240925101450_relation")]
+    partial class relation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -51,13 +54,13 @@ namespace ProofMark.EF.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "8ff31fb4-7c4f-44e1-a96a-6215fe883420",
+                            Id = "9c091155-67de-4317-ae66-df124c4c3fca",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "5146d809-bd25-4f87-814f-cde3d67b3568",
+                            Id = "d5cce584-2b92-404a-9490-0703413dbdb8",
                             Name = "Factory",
                             NormalizedName = "FACTORY"
                         });
@@ -152,8 +155,8 @@ namespace ProofMark.EF.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "69bd8653-d26b-460a-b855-312de5bb33de",
-                            RoleId = "8ff31fb4-7c4f-44e1-a96a-6215fe883420"
+                            UserId = "8cbd43c7-1d7c-4e57-a51e-c2b35f41be3c",
+                            RoleId = "9c091155-67de-4317-ae66-df124c4c3fca"
                         });
                 });
 
@@ -224,9 +227,6 @@ namespace ProofMark.EF.Migrations
 
                     b.Property<int>("FactoryId")
                         .HasColumnType("int");
-
-                    b.Property<bool>("IsDelete")
-                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
@@ -341,20 +341,20 @@ namespace ProofMark.EF.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "69bd8653-d26b-460a-b855-312de5bb33de",
+                            Id = "8cbd43c7-1d7c-4e57-a51e-c2b35f41be3c",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "f258905b-fc93-40ca-bb38-5403f4a017ee",
-                            CreateAt = new DateTime(2024, 9, 25, 13, 44, 33, 530, DateTimeKind.Local).AddTicks(851),
+                            ConcurrencyStamp = "ec0f41ae-a56f-4d32-bfca-83e51008d713",
+                            CreateAt = new DateTime(2024, 9, 25, 13, 14, 45, 272, DateTimeKind.Local).AddTicks(8874),
                             Email = "Admin@gmail.com",
                             EmailConfirmed = true,
                             IsActive = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@GMAIL.COM",
                             NormalizedUserName = "ADMIN@GMAIL.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEFD2/+AEaijH3vse5Pf/Y9vLxPRZyJvoXJHP1uySUHc7uYp2BfB8f98IZSKemCPeOA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAENZSZCwxaXV++A8yQ5ehwe4hzyAWT0/Z+u3qGINCE4Jxmlb4NVG3C5dq8ihjSGQFIg==",
                             PhoneNumber = "1234567890",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "1ea0acb2-22a3-4298-9134-8d236f995f68",
+                            SecurityStamp = "bdf36ade-0244-4387-83ea-f8d63c1993c8",
                             TwoFactorEnabled = false,
                             UserName = "Admin@gmail.com",
                             UserType = 0

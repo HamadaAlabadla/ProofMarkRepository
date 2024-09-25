@@ -26,11 +26,7 @@ namespace ProofMark.EF.Data
 				.WithOne()
 				.HasForeignKey<Factory>(f => f.UserId);
 
-			builder.Entity<Product>()
-				.HasOne(p => p.Factory)
-				.WithMany(f => f.Products)
-				.HasForeignKey(p => p.FactoryId);
-
+			
 			builder.Entity<ProductItem>()
 				.HasOne(pi => pi.Product)
 				.WithMany(p => p.Items)

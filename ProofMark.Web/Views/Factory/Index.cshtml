@@ -1,1 +1,149 @@
-﻿
+﻿@{
+	ViewData["Title"] = "GetAllProducts";
+}
+<link href="~/lib/datatables/css/datatables.bootstrap4.css" rel="stylesheet" />
+<link href="~/lib/datatables/css/datatables.bootstrap4.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<!--begin::Tables Widget 9-->
+<div class="card mb-5 mb-xl-8">
+	<!--begin::Header-->
+	<div class="card-header border-0 pt-5">
+		<h3 class="card-title align-items-start flex-column">
+			<span class="card-label fw-bold fs-3 mb-1">All Products</span>
+			<span class="text-muted mt-1 fw-semibold fs-7">Hello </span>
+		</h3>
+		<div class="card-toolbar" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-trigger="hover" title="Click to add a Product">
+			<a href="#" class="btn btn-sm btn-light btn-active-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_new_product">
+				<!--begin::Svg Icon | path: icons/duotune/arrows/arr075.svg-->
+				<span class="svg-icon svg-icon-3">
+					<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<rect opacity="0.5" x="11.364" y="20.364" width="16" height="2" rx="1" transform="rotate(-90 11.364 20.364)" fill="currentColor" />
+						<rect x="4.36396" y="11.364" width="16" height="2" rx="1" fill="currentColor" />
+					</svg>
+				</span>
+				<!--end::Svg Icon-->New Factory
+			</a>
+		</div>
+	</div>
+	<!--end::Header-->
+	<!--begin::Body-->
+	<div class="card-body py-3">
+		<!--begin::Table container-->
+		<div class="table-responsive">
+			<!--begin::Table-->
+			<table id="ProductsTable" class="table table-row-dashed table-row-gray-300 align-middle gs-0 gy-4">
+				<!--begin::Table head-->
+				<thead>
+					<tr class="fw-bold text-muted">
+						<th class="min-w-200px">Id</th>
+						<th class="min-w-200px">Name</th>
+						<th class="min-w-200px">Description</th>
+						<th class="min-w-150px">CreatedAt</th>
+						<th class="min-w-150px">IsDelete</th>
+						<th class="min-w-100px text-end">Actions</th>
+					</tr>
+				</thead>
+				<!--end::Table head-->
+
+			</table>
+			<!--end::Table-->
+		</div>
+		<!--end::Table container-->
+	</div>
+	<!--begin::Body-->
+</div>
+<!--end::Tables Widget 9-->
+<!--begin::Modal - New Target-->
+<div class="modal fade" id="kt_modal_new_product" tabindex="-1" aria-hidden="true">
+	<!--begin::Modal dialog-->
+	<div class="modal-dialog modal-dialog-centered mw-650px">
+		<!--begin::Modal content-->
+		<div class="modal-content rounded">
+			<!--begin::Modal header-->
+			<div class="modal-header pb-0 border-0 justify-content-end">
+				<!--begin::Close-->
+				<div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
+					<!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
+					<span class="svg-icon svg-icon-1">
+						<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+							<rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="currentColor" />
+							<rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="currentColor" />
+						</svg>
+					</span>
+					<!--end::Svg Icon-->
+				</div>
+				<!--end::Close-->
+			</div>
+			<!--begin::Modal header-->
+			<!--begin::Modal body-->
+			<div class="modal-body scroll-y px-10 px-lg-15 pt-0 pb-15">
+				<!--begin:Form-->
+				<form id="kt_modal_new_product_form" class="form" action="#">
+					<!--begin::Heading-->
+					<div class="mb-13 text-center">
+						<!--begin::Title-->
+						<h1 class="mb-3">Add New Product</h1>
+						<!--end::Title-->
+						<!--begin::Description-->
+						<div class="text-muted fw-semibold fs-5">
+							Add new product for you list
+							<a href="#" class="fw-bold link-primary">We wish you a pleasant experience.</a>.
+						</div>
+						<!--end::Description-->
+					</div>
+					<!--end::Heading-->
+					<!--begin::Input group-->
+					<div class="d-flex flex-column mb-8 fv-row">
+						<!--begin::Label-->
+						<label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+							<span class="required">Name</span>
+							<i class="fa fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify Valid Name"></i>
+						</label>
+						<!--end::Label-->
+						<input type="text" class="form-control form-control-solid" placeholder="Enter Name" name="Name" id="Name" />
+					</div>
+					<!--end::Input group-->
+					<!--begin::Input group-->
+					<div class="d-flex flex-column mb-8 fv-row">
+						<!--begin::Label-->
+						<label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+							<span class="required">Description</span>
+							<i class="fa fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify Valid Description"></i>
+						</label>
+						<!--end::Label-->
+						<input type="text" class="form-control form-control-solid" placeholder="Enter Description" name="Description" id="Description" />
+					</div>
+					<!--end::Input group-->
+					<!--begin::Actions-->
+					<div class="text-center">
+						<button type="reset" id="kt_modal_ProductsTable_cancel" class="btn btn-light me-3">Cancel</button>
+						<button type="submit" id="kt_modal_ProductsTable_submit" class="btn btn-primary">
+							<span class="indicator-label">Submit</span>
+							<span class="indicator-progress">
+								Please wait...
+								<span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+							</span>
+						</button>
+					</div>
+					<!--end::Actions-->
+				</form>
+				<!--end:Form-->
+			</div>
+			<!--end::Modal body-->
+		</div>
+		<!--end::Modal content-->
+	</div>
+	<!--end::Modal dialog-->
+</div>
+<!--end::Modal - New Target-->
+@section Scripts {
+	<script src="~/lib/datatables/js/jquery.datatables.js"></script>
+	<script src="~/lib/datatables/js/jquery.datatables.min.js"></script>
+	<script src="~/lib/datatables/js/datatables.bootstrap4.js"></script>
+	<script src="~/lib/datatables/js/datatables.bootstrap4.min.js"></script>
+	<script src="~/js/datatables/ProductsDataTable.js"></script>
+    <script src="~/js/modals/create-product.js"></script>
+	<script src="~/js/modals/delete-product.js"></script>
+}
+
+
