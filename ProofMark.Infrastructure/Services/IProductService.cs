@@ -1,6 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using ProofMark.EF.Data;
 using ProofMark.EF.Models;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace ProofMark.Infrastructure.Services
 {
@@ -11,7 +13,8 @@ namespace ProofMark.Infrastructure.Services
 		Task<Product> CreateProductAsync(Product product);
 		Task UpdateProductAsync(Product product);
 		Task<bool> DeleteProductAsync(int productId);
-		Task<List<ProductItem>> CreateProductItemAsync(int productId, int num);
+		Task<List<ProductItem>> CreateProductItemAsync( int productId, int num);
+		Task<List<ProductItem>> GetProductItemsAsync(int productId , int factoryId);
 		Task<bool> VerifyProductItemAsync(string qrCode);
 	}
 
@@ -20,11 +23,13 @@ namespace ProofMark.Infrastructure.Services
 	{
 		private readonly ApplicationDbContext _context;
 		private readonly IQRCodeService _qrCodeService;
+		private readonly UserManager<User> _userManager;
 
-		public ProductService(ApplicationDbContext context, IQRCodeService qrCodeService)
+		public ProductService(ApplicationDbContext context, IQRCodeService qrCodeService , UserManager<User> userManager)
 		{
 			_context = context;
 			_qrCodeService = qrCodeService;
+			_userManager = userManager;
 		}
 
 		public async Task<Product?> GetProductByIdAsync(int id)
@@ -66,8 +71,9 @@ namespace ProofMark.Infrastructure.Services
 			return false;
         }
 
-		public async Task<List<ProductItem>> CreateProductItemAsync(int productId, int num)
+		public async Task<List<ProductItem>> CreateProductItemAsync( int productId, int num)
 		{
+			
 			var product = await _context.Products.FindAsync(productId);
 			if (product == null)
 				throw new ArgumentException("Product not found");
@@ -77,16 +83,20 @@ namespace ProofMark.Infrastructure.Services
 
 
 				var productItem = new ProductItem
-				{
+                {
 					ProductId = productId,
-					SerialNumber = Guid.NewGuid().ToString(),
 					CreatedAt = DateTime.UtcNow
 				};
+                _context.ProductItems.Add(productItem);
+                await _context.SaveChangesAsync();
 
-				var qrCodeContent = $"ProductItemId:{productItem.Id},SerialNumber:{productItem.SerialNumber},Timestamp:{DateTime.UtcNow.Ticks}";
+                productItem.SerialNumber = productId.ToString().PadLeft(4, '0') + productItem.Id.ToString().PadLeft(4, '0');
+
+				var qrCodeContent = $"ProductItemId:{productItem.Id},SerialNumber:{productItem.SerialNumber},Timestamp:{productItem.CreatedAt}";
+				productItem.QRCodeText = qrCodeContent;
 				productItem.QRCode = _qrCodeService.GenerateQRCode(qrCodeContent);
 
-				_context.ProductItems.Add(productItem);
+				_context.Entry(productItem).State = EntityState.Modified;
 				await _context.SaveChangesAsync();
 				ListProductItems.Add(productItem);
 			}
@@ -97,9 +107,19 @@ namespace ProofMark.Infrastructure.Services
 		public async Task<bool> VerifyProductItemAsync(string qrCode)
 		{
 			var productItem = await _context.ProductItems
-				.FirstOrDefaultAsync(pi => pi.QRCode == qrCode);
+				.FirstOrDefaultAsync(pi => pi.QRCodeText == qrCode);
 
 			return productItem != null;
+		}
+
+		public async Task<List<ProductItem>> GetProductItemsAsync(int productId , int factoryId)
+		{
+			if ((await _context.Products.Where(x => x.FactoryId == factoryId).ToListAsync()).Select(x => x.Id).Contains(productId))
+			{
+				var items =await _context.ProductItems.Where(x => x.ProductId == productId).ToListAsync();
+				return items;
+			}
+			return new List<ProductItem>();
 		}
 	}
 

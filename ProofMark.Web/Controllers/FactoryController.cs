@@ -71,16 +71,44 @@ namespace ProofMark.Web.Controllers
             return Json(new { success = (createdProduct is null) ? false : true, message = (createdProduct is not null) ? "Product has been successfully created!" : "Invalid data" });
         }
 
-        [HttpPost]
+        [HttpGet]
+        public IActionResult IndexItems(int Id)
+        {
+			ViewData["Id"] = Id;
+            return View();
+        }
+
+		[HttpGet]
+		public async Task<IActionResult> GetProductItems(int Id)
+		{
+			var user = await _userManager.GetUserAsync(User);
+			if (user == null)
+				throw new ApplicationException($"Couldn't Show Products");
+			var factory = await _factoryService.GetFactoryByUserIdAsync(user.Id);
+			if (factory == null)
+				throw new ApplicationException($"Couldn't Show Products");
+			var Items = await _productService.GetProductItemsAsync(Id, factory.Id);
+			var recordsTotal = Items.Count();
+			var jsonData = new { recordsFiltered = recordsTotal, recordsTotal, data = Items };
+
+			return Json(jsonData);
+		}
+
+		[HttpPost]
 		public async Task<IActionResult> CreateProductItem(int productId, int num)
 		{
-			var productItem = await _productService.CreateProductItemAsync(productId, num);
-			var ListProductItemsId = new List<int>();
-			foreach (var item in productItem)
-			{
-				ListProductItemsId.Add(item.Id);
-			}
-			return CreatedAtAction(nameof(GetFactoryProducts), new { ListProductItemsId = ListProductItemsId }, productItem);
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+                throw new ApplicationException($"Couldn't Show Products");
+            var factory = await _factoryService.GetFactoryByUserIdAsync(user.Id);
+            if (factory == null)
+                throw new ApplicationException($"Couldn't Show Products");
+			var products = (await _productService.GetProductsByFactoryIdAsync(factory.Id)).ToList().Select(x => x.Id) ;
+			if(!products.Contains(productId))
+                throw new ApplicationException($"Couldn't Show Products");
+            var productItems = await _productService.CreateProductItemAsync(productId, num);
+			return Json(new { success = (productItems.Count() == 0) ? false : true, message = (productItems.Count() != 0) ? "Product items has been successfully created!" : "Invalid data" });
+
 		}
 
 		[HttpDelete]

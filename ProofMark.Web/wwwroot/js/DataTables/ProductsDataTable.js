@@ -39,7 +39,7 @@ $(document).ready(function () {
             },
             {
                 "title": "Name",
-                "data": "name",
+                "data": null,
                 "name":"Name",
                 "render": function (data, type, row) {
                     // Render custom HTML (for example, an Edit and Delete button)
@@ -47,7 +47,7 @@ $(document).ready(function () {
                         <td>
 							<div class="d-flex align-items-center">
 								<div class="d-flex justify-content-start flex-column">
-									<a href="/Factory/#" class="text-dark fw-bold text-hover-primary fs-6">${data}</a>
+									<a href="/Factory/IndexItems?Id=${row.id}" class="text-dark fw-bold text-hover-primary fs-6">${row.name}</a>
 								</div>
 							</div>
 						</td>

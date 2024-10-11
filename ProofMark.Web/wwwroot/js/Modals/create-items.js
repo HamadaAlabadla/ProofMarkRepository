@@ -1,9 +1,9 @@
-"use strict";
+﻿"use strict";
 
 // Class definition
 var KTModalNewTarget = function () {
-	var submitButtonProductCreate;
-	var cancelButtonProductCreate;
+	var submitButtonItemsCreate;
+	var cancelButtonItemsCreate;
 	var validator;
 	var form;
 	var modal;
@@ -39,7 +39,7 @@ var KTModalNewTarget = function () {
 	//           validator.revalidateField('team_assign');
 	//       });
 	//}
-	var initForm = $(kt_modal_new_product_form);
+	var initForm = $(kt_modal_new_Items_form);
 	// Handle form validation and submittion
 	var handleForm = function () {
 		// Stepper custom navigation
@@ -97,7 +97,7 @@ var KTModalNewTarget = function () {
 		);
 
 		// Action buttons
-		submitButtonProductCreate.addEventListener('click', function (e) {
+		submitButtonItemsCreate.addEventListener('click', function (e) {
 			e.preventDefault();
 
 			// Validate form before submit
@@ -106,26 +106,23 @@ var KTModalNewTarget = function () {
 					console.log('validated!');
 
 					if (status == 'Valid') {
-						submitButtonProductCreate.setAttribute('data-kt-indicator', 'on');
+						submitButtonItemsCreate.setAttribute('data-kt-indicator', 'on');
 
 						// Disable button to avoid multiple click 
-						submitButtonProductCreate.disabled = true;
+						submitButtonItemsCreate.disabled = true;
 
 						setTimeout(function () {
-							submitButtonProductCreate.removeAttribute('data-kt-indicator');
+							submitButtonItemsCreate.removeAttribute('data-kt-indicator');
 
 							// Enable button
-							submitButtonProductCreate.disabled = false;
-
-							var model = {
-								Name: $('#Name').val(),
-								Description: $('#Description').val()
-							};
+							submitButtonItemsCreate.disabled = false;
+							var num = document.getElementById('Num').value;
+							var id = document.getElementById('Id').innerText;
 
 							$.ajax({
-								url: '/Factory/CreateProduct',
+								url: '/Factory/CreateProductItem',
 								type: 'POST',
-								data: model,
+								data: { productId: id, num: num }, 
 								success: function (response) {
 									if (response.success) {
 										// Show success message. For more info check the plugin's official documentation: https://sweetalert2.github.io/
@@ -200,7 +197,7 @@ var KTModalNewTarget = function () {
 			}
 		});
 
-		cancelButtonProductCreate.addEventListener('click', function (e) {
+		cancelButtonItemsCreate.addEventListener('click', function (e) {
 			e.preventDefault();
 
 			Swal.fire({
@@ -237,7 +234,7 @@ var KTModalNewTarget = function () {
 		// Public functions
 		init: function () {
 			// Elements
-			modalEl = document.querySelector('#kt_modal_new_product');
+			modalEl = document.querySelector('#kt_modal_new_Items');
 
 			if (!modalEl) {
 				return;
@@ -245,9 +242,9 @@ var KTModalNewTarget = function () {
 
 			modal = new bootstrap.Modal(modalEl);
 
-			form = document.querySelector('#kt_modal_new_product_form');
-			submitButtonProductCreate = document.getElementById('kt_modal_ProductsTable_submit');
-			cancelButtonProductCreate = document.getElementById('kt_modal_ProductsTable_cancel');
+			form = document.querySelector('#kt_modal_new_Items_form');
+			submitButtonItemsCreate = document.getElementById('kt_modal_Items_submit');
+			cancelButtonItemsCreate = document.getElementById('kt_modal_Items_cancel');
 
 			//initForm();
 			handleForm();

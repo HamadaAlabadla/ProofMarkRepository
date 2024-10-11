@@ -11,9 +11,12 @@ body {
 }
 
 .container {
-    width: 100%;
-    max-width: 500px;
-    margin: 5px;
+    width: 80%; /* Adjust width as needed */
+    max-width: 600px; /* Optional: max width */
+    padding: 20px;
+    background-color: lightblue; /* Example background */
+    text-align: center; /* Center text inside the container */
+    border-radius: 8px; /* Optional: rounded corners */
 }
 
     .container h1 {

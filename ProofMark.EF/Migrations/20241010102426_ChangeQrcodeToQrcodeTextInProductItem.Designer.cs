@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProofMark.EF.Data;
 
@@ -11,9 +12,11 @@ using ProofMark.EF.Data;
 namespace ProofMark.EF.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241010102426_ChangeQrcodeToQrcodeTextInProductItem")]
+    partial class ChangeQrcodeToQrcodeTextInProductItem
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -51,13 +54,13 @@ namespace ProofMark.EF.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "8c95b49b-55fb-4679-aa9b-647ff56e48b4",
+                            Id = "75dddc2d-3c1b-4ff2-8856-bd609b00fbdd",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "36540e8b-1dd5-4c4a-82d8-ae0a7d89e26a",
+                            Id = "7b3026dd-1037-4f27-bd26-25b8b31bb542",
                             Name = "Factory",
                             NormalizedName = "FACTORY"
                         });
@@ -152,8 +155,8 @@ namespace ProofMark.EF.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "313908ef-a20a-4e82-b64b-254b5914688a",
-                            RoleId = "8c95b49b-55fb-4679-aa9b-647ff56e48b4"
+                            UserId = "f2abd5af-025c-4ad6-928b-7d8a132f1ed7",
+                            RoleId = "75dddc2d-3c1b-4ff2-8856-bd609b00fbdd"
                         });
                 });
 
@@ -252,9 +255,6 @@ namespace ProofMark.EF.Migrations
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
 
-                    b.Property<string>("QRCode")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("QRCodeText")
                         .HasColumnType("nvarchar(max)");
 
@@ -344,20 +344,20 @@ namespace ProofMark.EF.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "313908ef-a20a-4e82-b64b-254b5914688a",
+                            Id = "f2abd5af-025c-4ad6-928b-7d8a132f1ed7",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "b12822d0-b057-4da0-b96f-060f5f9700ea",
-                            CreateAt = new DateTime(2024, 10, 10, 13, 37, 36, 134, DateTimeKind.Local).AddTicks(4148),
+                            ConcurrencyStamp = "dac15fe7-2295-428d-a491-679bdf79abfc",
+                            CreateAt = new DateTime(2024, 10, 10, 13, 24, 18, 931, DateTimeKind.Local).AddTicks(8698),
                             Email = "Admin@gmail.com",
                             EmailConfirmed = true,
                             IsActive = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@GMAIL.COM",
                             NormalizedUserName = "ADMIN@GMAIL.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAENm77TJRt2wWCnc2af18QhTxUUmo6F8MMfIAhyc8xW40MOQFYxWpQb7AOp370GmHSg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEDln5iZseeNOzAx7lU0ECP22lXTzOFry/HAcyilNKQ1SxlWXq5baZknP4HReR/umQA==",
                             PhoneNumber = "1234567890",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "32431d36-f8db-4e8e-91fb-f1ee319d88f9",
+                            SecurityStamp = "ee5d79b6-1f3b-4881-a5bb-eb2a45bcf6ce",
                             TwoFactorEnabled = false,
                             UserName = "Admin@gmail.com",
                             UserType = 0

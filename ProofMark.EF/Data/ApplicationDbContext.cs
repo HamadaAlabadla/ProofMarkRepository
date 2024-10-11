@@ -27,11 +27,6 @@ namespace ProofMark.EF.Data
 				.HasForeignKey<Factory>(f => f.UserId);
 
 			
-			builder.Entity<ProductItem>()
-				.HasOne(pi => pi.Product)
-				.WithMany(p => p.Items)
-				.HasForeignKey(pi => pi.ProductId);
-
 
 			var AdminId = Guid.NewGuid().ToString();
 			var FactoryId = Guid.NewGuid().ToString();

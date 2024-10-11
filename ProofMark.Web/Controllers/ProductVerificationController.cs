@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using ProofMark.EF.Models;
 using ProofMark.Infrastructure.Services;
 
 namespace ProofMark.web.Controllers
@@ -18,10 +19,10 @@ namespace ProofMark.web.Controllers
 		}
 
 		[HttpPost]
-		public async Task<IActionResult> VerifyProduct([FromBody] string qrCode)
+		public async Task<IActionResult> VerifyProduct( string QRCodeText)
 		{
-			var isAuthentic = await _productService.VerifyProductItemAsync(qrCode);
-			return Ok(new { isAuthentic });
+			var isAuthentic = await _productService.VerifyProductItemAsync(QRCodeText);
+			return Json(new { success = isAuthentic, message = isAuthentic? "This product has been verified, this product is original" : "This product has been verified, this product is fake" });
 		}
 	}
 
